@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Meme Generator
 
-## Getting Started
+A comprehensive meme generator built with Next.js 16, InstantDB, and deployed on Vercel.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Create Page**: Upload custom images, add text overlays, and choose from preloaded meme templates (crypto/developer focused)
+- **Feed Page**: Masonry/Pinterest-style layout displaying all memes with real-time updates
+- **Voting System**: Upvote/downvote memes (1 upvote = 10 points). Users can vote multiple times and change votes
+- **Comments**: Add comments on memes (authenticated users only)
+- **User Profiles**: View user profiles showing created memes and stats
+- **Authentication**: InstantDB built-in auth (magic link + OAuth). Guest users can view feed but need auth for actions
+
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Database & Auth**: InstantDB
+- **Canvas Editing**: react-konva
+- **Layout**: react-masonry-css
+- **Styling**: Tailwind CSS
+- **Deployment**: Vercel
+
+## Setup
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Set up InstantDB:
+   - Create an account at [InstantDB](https://instantdb.com)
+   - Create a new app
+   - Get your App ID
+
+4. Create a `.env.local` file:
+   ```
+   NEXT_PUBLIC_INSTANT_APP_ID=your_instant_app_id_here
+   ```
+
+5. Set up InstantDB schema:
+   - Go to your InstantDB dashboard
+   - Create the following tables:
+     - `users` (id, email, name?, avatar?, createdAt)
+     - `memes` (id, imageUrl, topText?, bottomText?, creatorId, points, createdAt, templateId?)
+     - `votes` (id, memeId, userId, type, createdAt)
+     - `comments` (id, memeId, userId, text, createdAt)
+     - `meme_templates` (id, imageUrl, name, category, popularity)
+
+6. Configure permissions in InstantDB:
+   - `memes`: Public read, authenticated write
+   - `votes`: Public read, authenticated write
+   - `comments`: Public read, authenticated write
+   - `users`: Public read
+
+7. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+8. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## Deployment
+
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Add environment variable `NEXT_PUBLIC_INSTANT_APP_ID` in Vercel dashboard
+4. Deploy!
+
+## Project Structure
+
+```
+meme-generator/
+├── app/
+│   ├── layout.tsx          # Root layout with InstantProvider
+│   ├── page.tsx            # Redirects to /feed
+│   ├── feed/               # Feed page
+│   ├── create/             # Meme creation page
+│   ├── profile/[userId]/  # User profile pages
+│   └── api/templates/     # Templates API route
+├── components/
+│   ├── Auth/              # Authentication components
+│   ├── Meme/              # Meme editor and template selector
+│   ├── Feed/              # Feed components
+│   ├── Comments/          # Comment components
+│   ├── Voting/            # Voting components
+│   └── Header.tsx         # Navigation header
+├── lib/
+│   ├── instant.ts         # InstantDB client
+│   ├── templates.ts       # Meme template data
+│   └── utils.ts           # Utility functions
+└── types/
+    └── index.ts           # TypeScript types
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Notes
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Meme images are currently stored as data URLs. For production, consider uploading to InstantDB storage buckets
+- The app uses InstantDB's real-time capabilities for live updates
+- Guest users can view the feed but need to sign in to create, vote, or comment
