@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth, useQuery } from "@instantdb/react";
+import { useAuth, useQuery } from "@/lib/instant";
 import { db } from "@/lib/instant";
 import { useState, useEffect } from "react";
 import { Meme } from "@/types";
@@ -19,7 +19,7 @@ export default function VoteButtons({ meme }: VoteButtonsProps) {
         $: {
           where: {
             memeId: meme.id,
-            userId: user?.id || "",
+            ...(user?.id && { userId: user.id }),
           },
         },
       },

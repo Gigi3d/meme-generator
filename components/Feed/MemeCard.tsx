@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery } from "@instantdb/react";
+import { useQuery } from "@/lib/instant";
 import { Meme, User } from "@/types";
 import { formatDate } from "@/lib/utils";
 import VoteButtons from "@/components/Voting/VoteButtons";

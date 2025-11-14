@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth, useQuery } from "@instantdb/react";
+import { useAuth, useQuery } from "@/lib/instant";
 import { db } from "@/lib/instant";
 import { useState } from "react";
 import { Meme, Comment, User } from "@/types";

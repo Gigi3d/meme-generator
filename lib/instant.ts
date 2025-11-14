@@ -1,6 +1,6 @@
 import { init } from "@instantdb/react";
 
-const APP_ID = process.env.NEXT_PUBLIC_INSTANT_APP_ID || "";
+const APP_ID = process.env.NEXT_PUBLIC_INSTANT_APP_ID || "859879cc-787b-49d4-9d1a-ae06b33c2edd";
 
 export type Schema = {
   users: {
@@ -44,4 +44,7 @@ export type Schema = {
 };
 
 export const db = init<Schema>({ appId: APP_ID });
+
+// Export hooks for convenience
+export const { useAuth, useQuery, useUser, useConnectionStatus } = db;
 

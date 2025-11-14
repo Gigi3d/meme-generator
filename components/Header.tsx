@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useAuth } from "@instantdb/react";
+import { useAuth } from "@/lib/instant";
 import AuthButton from "./Auth/AuthButton";
 
 export default function Header() {

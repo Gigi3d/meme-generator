@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth } from "@instantdb/react";
+import { useAuth } from "@/lib/instant";
 import { useState } from "react";
 import AuthModal from "./AuthModal";
 

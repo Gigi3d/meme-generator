@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery } from "@instantdb/react";
+import { useQuery } from "@/lib/instant";
 import { useParams } from "next/navigation";
 import { User, Meme } from "@/types";
 import MemeGrid from "@/components/Feed/MemeGrid";

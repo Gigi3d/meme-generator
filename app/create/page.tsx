@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useAuth, useQuery } from "@instantdb/react";
+import { useAuth, useQuery } from "@/lib/instant";
 import { db } from "@/lib/instant";
 import MemeEditor from "@/components/Meme/MemeEditor";
 import MemeTemplateSelector from "@/components/Meme/MemeTemplateSelector";

@@ -2,7 +2,7 @@
 
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { InstantProvider } from "@instantdb/react";
+import "@/lib/instant"; // Initialize InstantDB
 import Header from "@/components/Header";
 
 const geistSans = Geist({
@@ -20,19 +20,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const appId = process.env.NEXT_PUBLIC_INSTANT_APP_ID || "";
-
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <InstantProvider appId={appId}>
-          <Header />
-          <main className="min-h-screen bg-gray-50 dark:bg-gray-900">
-            {children}
-          </main>
-        </InstantProvider>
+        <Header />
+        <main className="min-h-screen bg-gray-50 dark:bg-gray-900">
+          {children}
+        </main>
       </body>
     </html>
   );
